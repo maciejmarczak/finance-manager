@@ -8,15 +8,15 @@ import {FormsModule} from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [
-    AuthComponent,
-    LoginComponent,
-    RegisterComponent
-  ],
   imports: [
     AuthRoutingModule,
     FormsModule,
     SharedModule
+  ],
+  declarations: [
+    AuthComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   providers: [
     AuthGuard
