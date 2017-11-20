@@ -3,6 +3,10 @@ form {
 
   .btn {
     cursor: pointer;
-    width: 50%;
+    min-width: 40%;
+  }
+
+  .alert {
+    font-size: 0.7rem;
   }
 }
