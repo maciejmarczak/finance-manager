@@ -18,7 +18,9 @@ import { Router } from '@angular/router';
       <div *ngIf="wrongCredentials" class="alert alert-danger" role="alert">
         <strong>Oops!</strong> Wrong credentials.
       </div>
-      <button type="submit" [disabled]="!form.valid" class="btn btn-primary">Login</button>
+      <div class="text-center">
+        <button type="submit" [disabled]="!form.valid" class="btn btn-primary">Login</button>
+      </div>
     </form>
     <div *ngIf="loading" class="spinner"><i class="fa fa-spinner rotating"></i></div>
   `,
@@ -49,6 +51,7 @@ export class LoginComponent {
 
   private onFailedLogin(): void {
     this.loginForm.resetPassword();
+
     this.wrongCredentials = true;
     this.loading = false;
   }

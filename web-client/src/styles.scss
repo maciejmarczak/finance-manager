@@ -6,14 +6,15 @@
 
 html, body {
   @include full-size();
-}
-
-body {
   background: linear-gradient(to right, #ffffff, #fcfcfc);
-}
 
-body, button, input {
-  font-family: 'Montserrat', sans-serif;
+  &, button, input {
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  button {
+    cursor: pointer;
+  }
 }
 
 @keyframes rotating {
