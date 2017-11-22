@@ -1,0 +1,11 @@
+$body-background: linear-gradient(to right, #ffffff, #fcfcfc);
+$default-font: 'Montserrat', sans-serif;
+
+html, body {
+  @include full-size();
+  background: $body-background;
+
+  &, button, input {
+    font-family: $default-font;
+  }
+}

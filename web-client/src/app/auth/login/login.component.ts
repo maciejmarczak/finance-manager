@@ -22,9 +22,8 @@ import { Router } from '@angular/router';
         <button type="submit" [disabled]="!form.valid" class="btn btn-primary">Login</button>
       </div>
     </form>
-    <div *ngIf="loading" class="spinner"><i class="fa fa-spinner rotating"></i></div>
-  `,
-  styleUrls: ['login.component.scss']
+    <div *ngIf="loading" class="overlay"><i class="fa fa-spinner rotating"></i></div>
+  `
 })
 export class LoginComponent {
 
