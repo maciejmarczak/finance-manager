@@ -8,4 +8,8 @@ html, body {
   &, button, input {
     font-family: $default-font;
   }
+
+  button {
+    cursor: pointer;
+  }
 }

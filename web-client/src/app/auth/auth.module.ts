@@ -8,6 +8,7 @@ import {FormsModule} from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { AuthService } from './auth.service';
 import { CommonModule } from '@angular/common';
+import { EmailNotTakenValidator } from './register/email-not-taken.validator';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { CommonModule } from '@angular/common';
   declarations: [
     AuthComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    EmailNotTakenValidator
   ],
   providers: [
     AuthGuard,
