@@ -20,12 +20,34 @@ export class MockBackend implements InMemoryDbService {
     return { users };
   }
 
+  get(reqInfo: RequestInfo): Observable<any> {
+    if (reqInfo.url.startsWith('auth/check-email-taken')) {
+      return this.getCheckEmailTaken(reqInfo);
+    }
+
+    return undefined;
+  }
+
   post(reqInfo: RequestInfo): Observable<any> {
     if (reqInfo.url === 'auth/login') {
       return this.postLogin(reqInfo);
     }
 
     return undefined;
+  }
+
+  private getCheckEmailTaken(reqInfo: RequestInfo): Observable<{ taken: boolean }> {
+    const email: string = reqInfo.url.split('/')[2];
+
+    const taken: boolean = users.some(user =>
+      user.email.toLowerCase() === email.toLowerCase());
+
+    return reqInfo.utils.createResponse$(() => {
+      return {
+        body: { taken },
+        status: STATUS.OK
+      }
+    });
   }
 
   private postLogin(reqInfo: RequestInfo): Observable<User> {

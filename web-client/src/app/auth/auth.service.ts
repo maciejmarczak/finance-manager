@@ -20,4 +20,9 @@ export class AuthService {
         localStorage.setItem('user', JSON.stringify(this.user = user))
       );
   }
+
+  checkEmailTaken(email: string): Observable<boolean> {
+    return this.http.get<{ taken: boolean }>(`${this.authBase}/check-email-taken/${email}`)
+      .map(response => response.taken);
+  }
 }

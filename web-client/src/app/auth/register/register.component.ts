@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
-import {RegisterForm} from "./register-form.model";
+import {RegisterForm} from './register-form.model';
+import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'fm-auth-register',
@@ -8,10 +9,12 @@ import {RegisterForm} from "./register-form.model";
 export class RegisterComponent {
 
   registerForm: RegisterForm = new RegisterForm();
-
   loading: boolean = false;
 
+  constructor(private authService: AuthService) {}
+
   register(): void {
-    console.log(this.registerForm);
+    this.authService.checkEmailTaken(this.registerForm.email)
+      .subscribe(isTaken => console.log('Email is taken: ' + isTaken));
   }
 }
