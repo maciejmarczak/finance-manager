@@ -1,5 +1,5 @@
-import {Directive, ElementRef, HostListener, Input, Renderer2} from '@angular/core';
-import {NgModel} from '@angular/forms';
+import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/core';
+import { NgModel } from '@angular/forms';
 
 @Directive({
   selector: '[fmErrorClass][ngModel]',

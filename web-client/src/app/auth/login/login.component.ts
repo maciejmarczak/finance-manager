@@ -1,5 +1,5 @@
-import {Component} from '@angular/core';
-import {LoginForm} from './login-form.model';
+import { Component } from '@angular/core';
+import { LoginForm } from './login-form.model';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 

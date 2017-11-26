@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
-import {RegisterForm} from './register-form.model';
-import {AuthService} from '../auth.service';
+import { Component } from '@angular/core';
+import { RegisterForm } from './register-form.model';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'fm-auth-register',
