@@ -1,30 +1,26 @@
-<form (submit)="form.valid && login()" #form="ngForm">
+<form [formGroup]="myForm" (submit)="myForm.valid && login()">
   <div class="form-group">
     <input
       type="email"
-      name="email"
-      [(ngModel)]="loginForm.email"
+      formControlName="email"
       class="form-control"
       placeholder="email"
       autocomplete="off"
-      required
     >
   </div>
   <div class="form-group">
     <input
       type="password"
-      name="password"
-      [(ngModel)]="loginForm.password"
+      formControlName="password"
       class="form-control"
       placeholder="password"
-      required
     >
   </div>
   <div *ngIf="wrongCredentials" class="alert alert-danger" role="alert">
     <strong>Oops!</strong> Wrong credentials!
   </div>
   <div class="text-center">
-    <button type="submit" [disabled]="!form.valid"
+    <button type="submit" [disabled]="!myForm.valid"
             class="btn btn-primary">Login</button>
   </div>
 </form>

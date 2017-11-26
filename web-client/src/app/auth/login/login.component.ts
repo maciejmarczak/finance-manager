@@ -1,26 +1,34 @@
-import { Component } from '@angular/core';
-import { LoginForm } from './login-form.model';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'fm-auth-login',
   templateUrl: 'login.component.html'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
-  loginForm: LoginForm = new LoginForm();
+  myForm: FormGroup;
 
   loading: boolean = false;
   wrongCredentials: boolean = false;
 
   constructor(private authService: AuthService,
+              private fb: FormBuilder,
               private router: Router) {}
+
+  ngOnInit() {
+    this.myForm = this.fb.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
 
   login(): void {
     this.loading = true;
 
-    this.authService.login(this.loginForm).subscribe(
+    this.authService.login(this.myForm.value).subscribe(
       () => this.onSuccessfulLogin(),
       () => this.onFailedLogin()
     );
@@ -31,7 +39,7 @@ export class LoginComponent {
   }
 
   private onFailedLogin(): void {
-    this.loginForm.resetPassword();
+    this.myForm.reset();
 
     this.wrongCredentials = true;
     this.loading = false;
