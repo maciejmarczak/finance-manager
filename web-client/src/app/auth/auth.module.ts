@@ -8,7 +8,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { AuthService } from './auth.service';
 import { CommonModule } from '@angular/common';
-import { EmailNotTakenValidator } from './register/email-not-taken.validator';
 
 @NgModule({
   imports: [
@@ -21,8 +20,7 @@ import { EmailNotTakenValidator } from './register/email-not-taken.validator';
   declarations: [
     AuthComponent,
     LoginComponent,
-    RegisterComponent,
-    EmailNotTakenValidator
+    RegisterComponent
   ],
   providers: [
     AuthGuard,
