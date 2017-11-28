@@ -1,20 +1,34 @@
-import { Component } from '@angular/core';
-import { RegisterForm } from './register-form.model';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { EmailValidators, PasswordValidators } from './register-form.validators';
 
 @Component({
   selector: 'fm-auth-register',
   templateUrl: 'register.component.html'
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
 
-  registerForm: RegisterForm = new RegisterForm();
+  myForm: FormGroup;
   loading: boolean = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,
+              private fb: FormBuilder) {}
+
+  ngOnInit() {
+    this.myForm = this.fb.group({
+      email: [
+        '', [Validators.required, Validators.email],
+        EmailValidators.emailTaken(this.authService)
+      ],
+      password: this.fb.group({
+        val: ['', Validators.required],
+        confirmVal: ['', Validators.required]
+      }, { validator: PasswordValidators.valuesMatch })
+    });
+  }
 
   register(): void {
-    this.authService.checkEmailTaken(this.registerForm.email)
-      .subscribe(isTaken => console.log('Email is taken: ' + isTaken));
+    console.log(this.myForm.value);
   }
 }

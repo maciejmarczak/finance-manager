@@ -1,38 +1,34 @@
-<form (submit)="form.valid && register()" #form="ngForm">
+<form [formGroup]="myForm" (submit)="myForm.valid && register()">
   <div class="form-group">
     <label for="email">Email</label>
     <input
       type="email"
-      name="email"
-      [(ngModel)]="registerForm.email"
-      class="form-control"
       id="email"
-      required
-    >
-    <div class="invalid-feedback">Sorry, that email's taken.</div>
-  </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input
-      type="password"
-      name="password"
-      [(ngModel)]="registerForm.password"
-      class="form-control is-invalid"
-      id="password"
-      required
+      formControlName="email"
+      class="form-control"
     >
   </div>
-  <div class="form-group">
-    <input
-      type="password"
-      class="form-control is-invalid"
-      placeholder="confirm password"
-      required
-    >
-    <div class="invalid-feedback">Passwords don't match.</div>
+  <div formGroupName="password">
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        type="password"
+        id="password"
+        formControlName="val"
+        class="form-control"
+      >
+    </div>
+    <div class="form-group">
+      <input
+        type="password"
+        formControlName="confirmVal"
+        class="form-control"
+        placeholder="Confirm password"
+      >
+    </div>
   </div>
   <div class="text-center">
-    <button type="submit" [disabled]="!form.valid"
+    <button type="submit" [disabled]="!myForm.valid"
             class="btn btn-primary">Create Account</button>
   </div>
 </form>
