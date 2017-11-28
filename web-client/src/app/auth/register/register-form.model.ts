@@ -1,4 +1,4 @@
-export class RegisterForm {
-  constructor(public email: string = '',
-              public password: string = '') {}
+export interface RegisterForm {
+  email: string,
+  password: string
 }
