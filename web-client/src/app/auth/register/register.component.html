@@ -6,7 +6,12 @@
       id="email"
       formControlName="email"
       class="form-control"
+      autocomplete="off"
     >
+    <span fmValidationFeedback="email" error="email">
+      Invalid email address.</span>
+    <span fmValidationFeedback="email" error="emailTaken">
+      Sorry, that email is already taken.</span>
   </div>
   <div formGroupName="password">
     <div class="form-group">
@@ -25,6 +30,8 @@
         class="form-control"
         placeholder="Confirm password"
       >
+      <span fmValidationFeedback="password" error="valuesMatch">
+      Passwords don't match.</span>
     </div>
   </div>
   <div class="text-center">
