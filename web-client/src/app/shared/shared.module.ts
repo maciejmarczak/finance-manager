@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
 import { ValidationFeedbackDirective } from './validation-feedback.directive';
+import { ValidationMarkDirective } from './validation-mark.directive';
 
 @NgModule({
   declarations: [
-    ValidationFeedbackDirective
+    ValidationFeedbackDirective,
+    ValidationMarkDirective
   ],
   exports: [
-    ValidationFeedbackDirective
+    ValidationFeedbackDirective,
+    ValidationMarkDirective
   ]
 })
 export class SharedModule {}
