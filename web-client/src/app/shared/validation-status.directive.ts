@@ -2,11 +2,11 @@ import { Attribute, Directive, OnInit } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 @Directive({
-  selector: '[fmValidationMark]'
+  selector: '[fmValidationStatus]'
 })
-export class ValidationMarkDirective implements OnInit {
+export class ValidationStatusDirective implements OnInit {
 
-  constructor(@Attribute('fmValidationMark') mode: string,
+  constructor(@Attribute('fmValidationStatus') flags: string,
               private ngControl: NgControl) {}
 
   ngOnInit() {
