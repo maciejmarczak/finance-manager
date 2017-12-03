@@ -1,4 +1,4 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { AuthService } from '../auth.service';
 
 export class EmailValidators {
@@ -12,17 +12,17 @@ export class EmailValidators {
 }
 
 export class PasswordValidators {
-  static valuesMatch(c: AbstractControl): ValidationErrors {
-    const confirmValControl = c.get('confirmVal');
+  static valuesMatch(fg: FormGroup): ValidationErrors {
+    const val: AbstractControl = fg.controls['val'];
+    const confirmVal: AbstractControl = fg.controls['confirmVal'];
 
-    const val = c.get('val').value;
-    const confirmVal = confirmValControl.value;
+    let errors: ValidationErrors;
 
-    if (val !== confirmVal) {
-      confirmValControl.setErrors({ valuesMatch: true });
-      return { valuesMatch: true };
-    } else {
-      confirmValControl.setErrors(null);
+    if (val.value !== confirmVal.value) {
+      errors = { valuesMatch: true };
     }
+
+    confirmVal.setErrors(errors);
+    return errors;
   }
 }

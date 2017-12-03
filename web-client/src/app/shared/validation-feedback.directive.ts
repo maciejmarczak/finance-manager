@@ -20,11 +20,11 @@ export class ValidationFeedbackDirective implements OnInit {
   constructor(private container: ControlContainer) {}
 
   ngOnInit() {
-    this.initControlValue();
+    this.initControl();
     this.listenForErrors();
   }
 
-  private initControlValue(): void {
+  private initControl(): void {
     const form: FormGroup = this.container.formDirective['form'];
 
     if ( (this.control = form.get(this.controlName)) == null ) {
