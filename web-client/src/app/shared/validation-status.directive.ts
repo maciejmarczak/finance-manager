@@ -8,19 +8,17 @@ export class ValidationStatusDirective implements OnInit {
 
   private config;
   private nativeEl;
-  private statusChanges$;
 
   constructor(@Attribute('fmValidationStatus') confStr: string,
               el: ElementRef,
-              ngControl: NgControl,
+              private ngControl: NgControl,
               private renderer: Renderer2) {
     this.config = Config.fromString(confStr);
     this.nativeEl = el.nativeElement;
-    this.statusChanges$ = ngControl.statusChanges;
   }
 
   ngOnInit() {
-    this.statusChanges$.subscribe(
+    this.ngControl.statusChanges.subscribe(
       status => this.updateElClasses(status)
     );
   }
@@ -48,7 +46,7 @@ export class ValidationStatusDirective implements OnInit {
 }
 
 class Config {
-  private static baseConfig = {
+  private static defaultConfig = {
     INVALID: {
       cssClass: 'is-invalid',
       enabled: true
@@ -66,7 +64,11 @@ class Config {
 
   static fromString(confStr: string) {
     // deep copy
-    const config = JSON.parse(JSON.stringify(Config.baseConfig));
+    const config = JSON.parse(JSON.stringify(Config.defaultConfig));
+
+    if (!confStr) {
+      return config;
+    }
 
     config.INVALID.enabled = confStr.includes('i');
     config.PENDING.enabled = confStr.includes('p');

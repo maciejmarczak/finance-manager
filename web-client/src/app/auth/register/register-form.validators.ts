@@ -13,11 +13,16 @@ export class EmailValidators {
 
 export class PasswordValidators {
   static valuesMatch(c: AbstractControl): ValidationErrors {
+    const confirmValControl = c.get('confirmVal');
+
     const val = c.get('val').value;
-    const confirmVal = c.get('confirmVal').value;
+    const confirmVal = confirmValControl.value;
 
     if (val !== confirmVal) {
+      confirmValControl.setErrors({ valuesMatch: true });
       return { valuesMatch: true };
+    } else {
+      confirmValControl.setErrors(null);
     }
   }
 }

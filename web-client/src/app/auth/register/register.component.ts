@@ -22,8 +22,8 @@ export class RegisterComponent implements OnInit {
         EmailValidators.emailTaken(this.authService)
       ],
       password: this.fb.group({
-        val: ['', Validators.required],
-        confirmVal: ['', Validators.required]
+        val: ['', Validators.minLength(5)],
+        confirmVal: ''
       }, { validator: PasswordValidators.valuesMatch })
     });
   }

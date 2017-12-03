@@ -25,14 +25,3 @@
   text-align: center;
   top: 0;
 }
-
-.form-control + .fa-spinner {
-  display: none;
-}
-
-.form-control.is-pending + .fa-spinner {
-  bottom: 30px;
-  display: inline-block;
-  left: 90%;
-  position: relative;
-}
