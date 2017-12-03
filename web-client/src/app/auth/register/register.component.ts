@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
         EmailValidators.emailTaken(this.authService)
       ],
       password: this.fb.group({
-        val: ['', Validators.minLength(5)],
+        val: ['', [Validators.required, Validators.minLength(5)]],
         confirmVal: ''
       }, { validator: PasswordValidators.valuesMatch })
     });

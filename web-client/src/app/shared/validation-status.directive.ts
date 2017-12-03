@@ -57,7 +57,7 @@ class Config {
     },
     VALID  : {
       cssClass: 'is-valid',
-      enabled: false
+      enabled: true
     },
     allClasses: ['is-invalid', 'is-pending', 'is-valid']
   };
