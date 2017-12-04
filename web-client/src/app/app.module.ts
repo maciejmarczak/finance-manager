@@ -10,6 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { MockBackend } from './mock-backend/mock-backend';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastModule } from 'ng2-toastr';
 
 const httpModules: any[] = [
   HttpClientModule
@@ -23,6 +25,8 @@ if (environment.useMockBackend) {
 @NgModule({
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    ToastModule.forRoot(),
     ...httpModules,
     AppRoutingModule,
     AuthModule,
