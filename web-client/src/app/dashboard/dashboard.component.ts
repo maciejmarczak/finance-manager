@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'fm-dashboard',
-  template: 'Hello from Dashboard component!'
+  template: `
+    <fm-header></fm-header>
+    Dashboard component!
+  `
 })
 export class DashboardComponent {}

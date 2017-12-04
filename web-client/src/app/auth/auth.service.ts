@@ -6,23 +6,29 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import { User } from './user.model';
 import { RegisterForm } from './register/register-form.model';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
 
-  public user: User;
   private readonly authBase: string = 'auth';
+  private storage: Storage = localStorage;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   login(loginForm: LoginForm): Observable<User> {
     return this.http.post<User>(`${this.authBase}/login`, loginForm)
-      .do(this.saveUserToStorage(localStorage));
+      .do(this.saveUserToStorage.bind(this));
   }
 
   register(registerForm: RegisterForm): Observable<User> {
     return this.http.post<User>(`${this.authBase}/register`, registerForm)
-      .do(this.saveUserToStorage(localStorage));
+      .do(this.saveUserToStorage.bind(this));
+  }
+
+  logout(): void {
+    this.removeUserFromStorage();
+    this.router.navigate(['auth']);
   }
 
   checkEmailTaken(email: string): Observable<boolean> {
@@ -30,10 +36,11 @@ export class AuthService {
       .map(response => response.taken);
   }
 
-  private saveUserToStorage(storage: Storage) {
-    const self = this;
-    return function(user: User) {
-      storage.setItem('user', JSON.stringify(self.user = user));
-    }
+  private saveUserToStorage(user: User) {
+    this.storage.setItem('user', JSON.stringify(user));
+  }
+
+  private removeUserFromStorage() {
+    this.storage.removeItem('user');
   }
 }

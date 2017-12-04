@@ -92,6 +92,8 @@ export class MockBackend implements InMemoryDbService {
       email: registerForm.email
     };
 
+    users.push(user);
+
     passwords[registerForm.email] = registerForm.password;
 
     return reqInfo.utils.createResponse$(() => {
