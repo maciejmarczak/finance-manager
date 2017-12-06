@@ -10,7 +10,7 @@ import { AuthService } from '../auth/auth.service';
     </nav>
   `
 })
-export class HeaderComponent {
+export class NavbarComponent {
   constructor(private authService: AuthService) {}
 
   logout(): void {

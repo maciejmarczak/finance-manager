@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
-import { HeaderComponent } from './header.component';
+import { NavbarComponent } from './navbar.component';
 
 @NgModule({
   imports: [
@@ -9,7 +9,7 @@ import { HeaderComponent } from './header.component';
   ],
   declarations: [
     DashboardComponent,
-    HeaderComponent
+    NavbarComponent
   ]
 })
 export class DashboardModule {}
