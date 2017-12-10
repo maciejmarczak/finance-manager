@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-import { DashboardModule } from './dashboard/dashboard.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -12,6 +11,7 @@ import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { MockBackend } from './mock-backend/mock-backend';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastModule } from 'ng2-toastr';
+import { ManagerModule } from './manager/manager.module';
 
 const httpModules: any[] = [
   HttpClientModule
@@ -30,7 +30,7 @@ if (environment.useMockBackend) {
     ...httpModules,
     AppRoutingModule,
     AuthModule,
-    DashboardModule
+    ManagerModule
   ],
   declarations: [
     AppComponent

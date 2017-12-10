@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
+import { ManagerComponent } from './manager.component';
+import { ManagerRoutingModule } from './manager-routing.module';
 import { DashboardComponent } from './dashboard.component';
-import { DashboardRoutingModule } from './dashboard-routing.module';
 import { NavbarComponent } from './navbar.component';
 
 @NgModule({
   imports: [
-    DashboardRoutingModule
+    ManagerRoutingModule
   ],
   declarations: [
+    ManagerComponent,
     DashboardComponent,
     NavbarComponent
   ]
 })
-export class DashboardModule {}
+export class ManagerModule {}
