@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'fm-manager',
   template: `
-    <fm-navbar></fm-navbar>
+    <fm-manager-navbar></fm-manager-navbar>
     <router-outlet></router-outlet>
   `
 })

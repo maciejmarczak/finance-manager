@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 
 @Component({
-  selector: 'fm-navbar',
+  selector: 'fm-manager-navbar',
   template: `
     <nav class="navbar navbar-light bg-light justify-content-between px-md-5">
       <a class="navbar-brand" routerLink="/">Finance Manager</a>
@@ -10,7 +10,7 @@ import { AuthService } from '../auth/auth.service';
     </nav>
   `
 })
-export class NavbarComponent {
+export class ManagerNavbarComponent {
   constructor(private authService: AuthService) {}
 
   logout(): void {

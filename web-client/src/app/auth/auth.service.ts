@@ -26,6 +26,10 @@ export class AuthService {
       .do(this.saveUserToStorage.bind(this));
   }
 
+  getUser(): User {
+    return JSON.parse(this.storage.getItem('user'));
+  }
+
   logout(): void {
     this.removeUserFromStorage();
     this.router.navigate(['auth']);
