@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ManagerService } from './manager.service';
 
 @Component({
   selector: 'fm-manager',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
     <router-outlet></router-outlet>
   `
 })
-export class ManagerComponent {}
+export class ManagerComponent {
+
+  constructor(private managerService: ManagerService) {}
+}

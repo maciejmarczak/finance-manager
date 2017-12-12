@@ -29,7 +29,7 @@ const token = 'token';
 export class MockBackend implements InMemoryDbService {
 
   createDb() {
-    return { users };
+    return {};
   }
 
   get(reqInfo: RequestInfo): Observable<any> {
