@@ -24,8 +24,6 @@ const passwords = {
   'default': 'passwd'
 };
 
-const token = 'token';
-
 export class MockBackend implements InMemoryDbService {
 
   createDb() {
@@ -77,7 +75,7 @@ export class MockBackend implements InMemoryDbService {
     );
 
     if (user) {
-      user.token = token;
+      user.token = user.id.toString();
     }
 
     return reqInfo.utils.createResponse$(() => {
@@ -107,7 +105,7 @@ export class MockBackend implements InMemoryDbService {
     return reqInfo.utils.createResponse$(() => {
       return {
         body: {
-          user: Object.assign({}, user, { token })
+          user: Object.assign({}, user, { token: user.id.toString() })
         },
         status: STATUS.OK
       }
