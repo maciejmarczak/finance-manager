@@ -5,9 +5,11 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ManagerNavbarComponent } from './manager-navbar.component';
 import { ManagerService } from './manager.service';
 import { DashboardSummaryComponent } from './dashboard/dashboard-summary.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   imports: [
+    CommonModule,
     ManagerRoutingModule
   ],
   declarations: [
