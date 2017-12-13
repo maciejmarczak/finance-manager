@@ -2,7 +2,7 @@ import { InMemoryDbService, RequestInfo, STATUS } from 'angular-in-memory-web-ap
 import { Observable } from 'rxjs/Observable';
 import { User } from '../auth/user.model';
 import { LoginForm } from '../auth/login/login-form.model';
-import { HttpRequest } from '@angular/common/http';
+import { HttpHeaders, HttpRequest } from '@angular/common/http';
 import { RegisterForm } from '../auth/register/register-form.model';
 import { Operation } from '../manager/operation.model';
 
@@ -35,6 +35,10 @@ export class MockBackend implements InMemoryDbService {
       return this.getCheckEmailTaken(reqInfo);
     }
 
+    if (reqInfo.url.startsWith('manager/operations')) {
+      return this.getOperations(reqInfo);
+    }
+
     return undefined;
   }
 
@@ -59,6 +63,18 @@ export class MockBackend implements InMemoryDbService {
     return reqInfo.utils.createResponse$(() => {
       return {
         body: { taken },
+        status: STATUS.OK
+      }
+    });
+  }
+
+  private getOperations(reqInfo: RequestInfo): Observable<Operation[]> {
+    const headers: HttpHeaders = reqInfo.req['headers'];
+    const userId: number = parseInt(headers.get('Authorization').replace('Bearer ', ''));
+
+    return reqInfo.utils.createResponse$(() => {
+      return {
+        body: operations.filter(op => op.issuerId === userId),
         status: STATUS.OK
       }
     });
