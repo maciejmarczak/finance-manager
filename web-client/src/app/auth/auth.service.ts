@@ -11,18 +11,18 @@ import { Router } from '@angular/router';
 @Injectable()
 export class AuthService {
 
-  private readonly authBase: string = 'auth';
+  private readonly authBaseUrl: string = 'auth';
   private storage: Storage = localStorage;
 
   constructor(private http: HttpClient, private router: Router) {}
 
   login(loginForm: LoginForm): Observable<User> {
-    return this.http.post<User>(`${this.authBase}/login`, loginForm)
+    return this.http.post<User>(`${this.authBaseUrl}/login`, loginForm)
       .do(this.saveUserToStorage.bind(this));
   }
 
   register(registerForm: RegisterForm): Observable<User> {
-    return this.http.post<User>(`${this.authBase}/register`, registerForm)
+    return this.http.post<User>(`${this.authBaseUrl}/register`, registerForm)
       .do(this.saveUserToStorage.bind(this));
   }
 
@@ -36,7 +36,7 @@ export class AuthService {
   }
 
   checkEmailTaken(email: string): Observable<boolean> {
-    return this.http.get<{ taken: boolean }>(`${this.authBase}/check-email-taken/${email}`)
+    return this.http.get<{ taken: boolean }>(`${this.authBaseUrl}/check-email-taken/${email}`)
       .map(response => response.taken);
   }
 

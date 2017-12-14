@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ManagerService } from '../manager.service';
+import { OperationService } from '../operation.service';
 import { Operation } from '../operation.model';
 
 @Component({
@@ -13,11 +13,11 @@ export class DashboardComponent implements OnInit {
 
   operations: Operation[];
 
-  constructor(private managerService: ManagerService) {}
+  constructor(private operationService: OperationService) {}
 
   ngOnInit(): void {
-    this.managerService.operations$.subscribe(this.onOperationsRefresh.bind(this));
-    this.managerService.loadOperations();
+    this.operationService.operations$.subscribe(this.onOperationsRefresh.bind(this));
+    this.operationService.loadOperations();
   }
 
   private onOperationsRefresh(operations: Operation[]): void {
