@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { OperationService } from './operation.service';
+import { WalletService } from './wallet.service';
 
 @Component({
   selector: 'fm-manager',
@@ -10,7 +10,7 @@ import { OperationService } from './operation.service';
 })
 export class ManagerComponent {
 
-  constructor(private operationService: OperationService) {
-    this.operationService.loadOperations();
+  constructor(private walletService: WalletService) {
+    this.walletService.loadWallet();
   }
 }

@@ -3,21 +3,21 @@ import { Subject } from 'rxjs/Subject';
 import { Operation } from './operation.model';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Wallet } from './wallet.model';
 
 @Injectable()
-export class OperationService {
+export class WalletService {
+
+  public wallet$: Subject<Wallet> = new BehaviorSubject(new Wallet());
 
   private readonly operationsBaseUrl: string = 'manager/operations';
-  public operations$: Subject<Operation[]> = new BehaviorSubject([]);
 
   constructor(private http: HttpClient) {}
 
-  public loadOperations(): void {
-    // reset currently stored data (useful on user logout)
-    this.operations$.next([]);
+  public loadWallet(): void {
+    this.wallet$.next(new Wallet());
 
-    // and fetch a new one
     this.http.get<Operation[]>(this.operationsBaseUrl)
-      .subscribe(operations => this.operations$.next(operations));
+      .subscribe(operations => this.wallet$.next(new Wallet(operations)));
   }
 }

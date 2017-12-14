@@ -3,7 +3,7 @@ import { ManagerComponent } from './manager.component';
 import { ManagerRoutingModule } from './manager-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ManagerNavbarComponent } from './manager-navbar.component';
-import { OperationService } from './operation.service';
+import { WalletService } from './wallet.service';
 import { DashboardSummaryComponent } from './dashboard/dashboard-summary.component';
 import { CommonModule } from '@angular/common';
 
@@ -19,7 +19,7 @@ import { CommonModule } from '@angular/common';
     DashboardSummaryComponent
   ],
   providers: [
-    OperationService
+    WalletService
   ]
 })
 export class ManagerModule {}

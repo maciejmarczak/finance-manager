@@ -1,32 +1,29 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { OperationService } from '../operation.service';
-import { Operation } from '../operation.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { WalletService } from '../wallet.service';
 import { Subscription } from 'rxjs/Subscription';
+import { Wallet } from '../wallet.model';
 
 @Component({
   selector: 'fm-dashboard',
   template: `
-    <fm-dashboard-summary [operations]="operations"></fm-dashboard-summary>
+    <fm-dashboard-summary [wallet]="wallet"></fm-dashboard-summary>
     Dashboard component!
   `
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  operations: Operation[];
+  wallet: Wallet;
+
   private sub: Subscription;
 
-  constructor(private operationService: OperationService) {}
+  constructor(private walletService: WalletService) {}
 
   ngOnInit() {
-    this.sub = this.operationService.operations$
-      .subscribe(this.onOperationsRefresh.bind(this));
+    this.sub = this.walletService.wallet$
+      .subscribe(wallet => this.wallet = wallet);
   }
 
   ngOnDestroy() {
     this.sub.unsubscribe();
-  }
-
-  private onOperationsRefresh(operations: Operation[]): void {
-    this.operations = operations;
   }
 }

@@ -11,6 +11,7 @@ import { AuthService } from '../auth/auth.service';
   `
 })
 export class ManagerNavbarComponent {
+
   constructor(private authService: AuthService) {}
 
   logout(): void {

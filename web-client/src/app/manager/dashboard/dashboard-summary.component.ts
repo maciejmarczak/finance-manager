@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Operation } from '../operation.model';
+import { Wallet } from '../wallet.model';
 
 interface CurrencySummary {
   currency: string;
@@ -9,7 +9,7 @@ interface CurrencySummary {
 @Component({
   selector: 'fm-dashboard-summary',
   template: `
-    <ul *ngIf="operations" class="list-inline">
+    <ul *ngIf="wallet.operations" class="list-inline text-center">
       <li 
         *ngFor="let summary of calculateSummaryPerCurrency()" 
         class="list-inline-item">
@@ -20,23 +20,9 @@ interface CurrencySummary {
 })
 export class DashboardSummaryComponent {
 
-  @Input() operations: Operation[];
+  @Input() wallet: Wallet;
 
   calculateSummaryPerCurrency(): CurrencySummary[] {
-    return this.operations.reduce(
-      (acc: CurrencySummary[], op: Operation) => {
-        const entry = acc.find(cs => cs.currency === op.currency);
-
-        if (entry) {
-          entry.value += op.value;
-        } else {
-          acc.push({
-            currency: op.currency,
-            value: op.value
-          });
-        }
-
-        return acc;
-    }, []);
+    return this.wallet && [];
   }
 }
