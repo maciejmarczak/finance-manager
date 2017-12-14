@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OperationService } from './operation.service';
 
 @Component({
   selector: 'fm-manager',
@@ -7,4 +8,9 @@ import { Component } from '@angular/core';
     <router-outlet></router-outlet>
   `
 })
-export class ManagerComponent {}
+export class ManagerComponent {
+
+  constructor(private operationService: OperationService) {
+    this.operationService.loadOperations();
+  }
+}

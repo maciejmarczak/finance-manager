@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { OperationService } from '../operation.service';
 import { Operation } from '../operation.model';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'fm-dashboard',
@@ -9,15 +10,20 @@ import { Operation } from '../operation.model';
     Dashboard component!
   `
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
 
   operations: Operation[];
+  private sub: Subscription;
 
   constructor(private operationService: OperationService) {}
 
-  ngOnInit(): void {
-    this.operationService.operations$.subscribe(this.onOperationsRefresh.bind(this));
-    this.operationService.loadOperations();
+  ngOnInit() {
+    this.sub = this.operationService.operations$
+      .subscribe(this.onOperationsRefresh.bind(this));
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
   private onOperationsRefresh(operations: Operation[]): void {

@@ -1,12 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { Operation } from '../operation.model';
-import { Observable } from 'rxjs/Observable';
-
-import 'rxjs/add/observable/from';
-import 'rxjs/add/operator/groupBy';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/reduce';
-import 'rxjs/add/operator/toArray';
 
 interface CurrencySummary {
   currency: string;
@@ -18,7 +11,7 @@ interface CurrencySummary {
   template: `
     <ul *ngIf="operations" class="list-inline">
       <li 
-        *ngFor="let summary of calculateSummaryPerCurrency() | async" 
+        *ngFor="let summary of calculateSummaryPerCurrency()" 
         class="list-inline-item">
             {{ summary.value + ' ' + summary.currency }}
       </li>
@@ -29,7 +22,21 @@ export class DashboardSummaryComponent {
 
   @Input() operations: Operation[];
 
-  calculateSummaryPerCurrency(): Observable<CurrencySummary[]> {
-    return null;
+  calculateSummaryPerCurrency(): CurrencySummary[] {
+    return this.operations.reduce(
+      (acc: CurrencySummary[], op: Operation) => {
+        const entry = acc.find(cs => cs.currency === op.currency);
+
+        if (entry) {
+          entry.value += op.value;
+        } else {
+          acc.push({
+            currency: op.currency,
+            value: op.value
+          });
+        }
+
+        return acc;
+    }, []);
   }
 }
