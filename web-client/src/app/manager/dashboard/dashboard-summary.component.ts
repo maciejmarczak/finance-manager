@@ -27,7 +27,6 @@ export class DashboardSummaryComponent {
     const summaries: CurrencySummary[] = [];
 
     for (let currency of this.wallet.getCurrencies()) {
-
       summaries.push(
         this.wallet.getOperationsByCurrency(currency)
           .reduce((acc: CurrencySummary, currentVal: Operation): CurrencySummary =>
