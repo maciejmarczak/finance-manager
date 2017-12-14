@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { Wallet } from '../wallet.model';
-import { Operation } from '../operation.model';
 
 interface CurrencySummary {
   currency: string;
@@ -24,17 +23,10 @@ export class DashboardSummaryComponent {
   @Input() wallet: Wallet;
 
   calculateSummaryPerCurrency(): CurrencySummary[] {
-    const summaries: CurrencySummary[] = [];
-
-    for (let currency of this.wallet.getCurrencies()) {
-      summaries.push(
-        this.wallet.getOperationsByCurrency(currency)
-          .reduce((acc: CurrencySummary, currentVal: Operation): CurrencySummary =>
-            (acc.value += currentVal.value) && acc, { currency, value: 0 }
-          )
-      );
-    }
-
-    return summaries;
+    return this.wallet.getCurrencies()
+      .map(currency => this.wallet.getOperationsByCurrency(currency)
+        .reduce((acc, currentVal) =>
+          (acc.value += currentVal.value) && acc, { currency, value: 0 }
+        ));
   }
 }
