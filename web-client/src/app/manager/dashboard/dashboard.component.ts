@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(private walletService: WalletService) {}
 
   ngOnInit() {
-    this.sub = this.walletService.wallet$
+    this.sub = this.walletService.getWallet()
       .subscribe(wallet => this.wallet = wallet);
   }
 
