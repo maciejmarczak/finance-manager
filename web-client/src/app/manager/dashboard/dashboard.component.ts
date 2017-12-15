@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { WalletService } from '../wallet.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Wallet } from '../wallet.model';
+import { AutoUnsubscribe } from '../../shared/auto-unsubscribe.annotation';
 
 @Component({
   selector: 'fm-dashboard',
@@ -10,7 +11,8 @@ import { Wallet } from '../wallet.model';
     Dashboard component!
   `
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+@AutoUnsubscribe
+export class DashboardComponent implements OnInit {
 
   wallet: Wallet;
 
@@ -21,9 +23,5 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.sub = this.walletService.getWallet()
       .subscribe(wallet => this.wallet = wallet);
-  }
-
-  ngOnDestroy() {
-    this.sub.unsubscribe();
   }
 }
