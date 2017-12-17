@@ -11,18 +11,15 @@ interface CurrencySummary {
   selector: 'fm-dashboard-summary',
   template: `
     <div class="text-center my-5">
-      <ul *ngIf="wallet && !wallet.isEmpty()" class="list-inline">
+      <ul *ngIf="!wallet.isEmpty()" class="list-inline">
         <li 
           *ngFor="let summary of calculateSummaryPerCurrency()" 
           class="list-inline-item">
           <h4 class="mx-3">{{ summary.value + ' ' + summary.currency }}</h4>
         </li>
       </ul>
-      <h4 *ngIf="wallet && wallet.isEmpty()">
+      <h4 *ngIf="wallet.isEmpty()">
         Your wallet is empty.
-      </h4>
-      <h4 *ngIf="!wallet">
-        Loading...
       </h4>
     </div>
   `

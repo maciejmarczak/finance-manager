@@ -7,8 +7,12 @@ import { AutoUnsubscribe } from '../../shared/auto-unsubscribe.annotation';
 @Component({
   selector: 'fm-dashboard',
   template: `
-    <fm-dashboard-summary [wallet]="wallet"></fm-dashboard-summary>
-    Dashboard component!
+    <div *ngIf="wallet">
+      <fm-dashboard-summary [wallet]="wallet"></fm-dashboard-summary>
+    </div>
+    <div *ngIf="!wallet" class="overlay">
+      <i class="fa fa-spinner rotating"></i>
+    </div>
   `
 })
 @AutoUnsubscribe
