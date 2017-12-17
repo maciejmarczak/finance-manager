@@ -14,8 +14,8 @@ interface CurrencySummary {
       <ul *ngIf="!wallet.isEmpty()" class="list-inline">
         <li 
           *ngFor="let summary of calculateSummaryPerCurrency()" 
-          class="list-inline-item">
-          <h4 class="mx-3">{{ summary.value + ' ' + summary.currency }}</h4>
+          class="list-inline-item mx-3 h2 font-weight-bold">
+          {{ summary.value + ' ' + summary.currency }}
         </li>
       </ul>
       <h4 *ngIf="wallet.isEmpty()">
