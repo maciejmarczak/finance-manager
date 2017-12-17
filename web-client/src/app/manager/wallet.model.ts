@@ -13,4 +13,8 @@ export class Wallet {
     return this.operations
       .filter(op => op.currency === currency);
   }
+
+  public isEmpty(): boolean {
+    return this.operations.length === 0;
+  }
 }

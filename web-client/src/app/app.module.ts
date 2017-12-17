@@ -19,7 +19,7 @@ const httpModules: any[] = [
 
 if (environment.useMockBackend) {
   httpModules.push(HttpClientInMemoryWebApiModule.forRoot(MockBackend,
-    { delay: 3000, apiBase: '' }));
+    { delay: 2000, apiBase: '' }));
 }
 
 @NgModule({
