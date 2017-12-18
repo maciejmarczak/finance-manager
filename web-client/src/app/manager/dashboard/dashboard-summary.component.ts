@@ -1,38 +1,53 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { Wallet } from '../wallet.model';
-import { Operation } from '../operation.model';
 
-interface CurrencySummary {
-  currency: string;
-  value: number;
+interface Dataset {
+  label: string;
+  data: number[];
 }
 
 @Component({
   selector: 'fm-dashboard-summary',
   template: `
     <div class="text-center my-5">
-      <ul *ngIf="!wallet.isEmpty()" class="list-inline">
-        <li 
-          *ngFor="let summary of calculateSummaryPerCurrency()" 
-          class="list-inline-item mx-3 h2">
-          {{ summary.value + ' ' + summary.currency }}
-        </li>
-      </ul>
+      <div *ngIf="!wallet.isEmpty()">
+        <canvas baseChart style="max-width: 750px; margin: 0 auto"
+                [chartType]="'line'"
+                [datasets]="chartDatasets"
+                [labels]="chartLabels"></canvas>
+      </div>
       <h4 *ngIf="wallet.isEmpty()">
         Your wallet is empty.
       </h4>
     </div>
   `
 })
-export class DashboardSummaryComponent {
+export class DashboardSummaryComponent implements OnChanges {
 
   @Input() wallet: Wallet;
 
-  calculateSummaryPerCurrency(): CurrencySummary[] {
+  chartDatasets: Dataset[];
+  chartLabels: string[];
+
+  ngOnChanges() {
+    this.chartDatasets = this.buildChartDatasets();
+    this.chartLabels = this.buildChartLabels();
+  }
+
+  private buildChartDatasets(): Dataset[] {
     return this.wallet.getCurrencies()
-      .map(currency => this.wallet.getOperationsByCurrency(currency)
-        .reduce((acc: CurrencySummary, currentVal: Operation): CurrencySummary =>
-          (acc.value += currentVal.value) && acc, { currency, value: 0 }
-        ));
+      .map(ccy => ({
+        label: ccy,
+        data: this.wallet.getOperationsByCurrency(ccy)
+          .reduce((acc, curr) => {
+            const lastVal = acc.pop();
+            acc.push(lastVal) && acc.push(lastVal + curr.value);
+            return acc;
+          }, [ 0 ])
+      }))
+  }
+
+  private buildChartLabels(): string[] {
+    return [];
   }
 }
