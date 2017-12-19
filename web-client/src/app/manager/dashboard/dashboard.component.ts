@@ -8,7 +8,7 @@ import { AutoUnsubscribe } from '../../shared/auto-unsubscribe.annotation';
   selector: 'fm-dashboard',
   template: `
     <div *ngIf="wallet" class="px-md-5">
-      <fm-dashboard-summary [wallet]="wallet"></fm-dashboard-summary>
+      Charts...
     </div>
     <div *ngIf="!wallet" class="overlay">
       <i class="fa fa-spinner rotating"></i>
