@@ -6,6 +6,7 @@ import { ManagerNavbarComponent } from './manager-navbar.component';
 import { WalletService } from './wallet.service';
 import { CommonModule } from '@angular/common';
 import { ChartsModule } from 'ng2-charts';
+import { DashboardChartsComponent } from './dashboard/dashboard-charts.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { ChartsModule } from 'ng2-charts';
   declarations: [
     ManagerComponent,
     ManagerNavbarComponent,
-    DashboardComponent
+    DashboardComponent,
+    DashboardChartsComponent
   ],
   providers: [
     WalletService
