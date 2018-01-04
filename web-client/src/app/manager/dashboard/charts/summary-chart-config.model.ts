@@ -1,14 +1,35 @@
 import { ChartConfig } from './chart-config.model';
+import { Wallet } from '../../wallet.model';
+
+import * as R from 'ramda';
+import { filterByCurrency, reduceByDate } from './data-utils';
 
 export class SummaryChartConfig extends ChartConfig {
 
-  recalculate<Wallet>(wallet: Wallet) {
-    this.datasets = [
-      {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-      {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'},
-      {data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C'}
-    ];
+  options = {
+    animation: false,
+    legend: false
+  };
 
-    this.labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  recalculate(wallet: Wallet, reportingCurrency: string): void {
+
+    const sumValuesPerDate = R.reduce(
+      (acc, curr) =>
+        acc.data.push((acc.data.slice(-1)[0] || 0) + curr[1])
+        && acc.labels.push(curr[0]) && acc,
+      { data: [], labels: [] }
+    );
+
+    const { data, labels } = R.pipe(
+      filterByCurrency(reportingCurrency),
+      reduceByDate,
+      R.toPairs,
+      sumValuesPerDate
+    )(wallet.operations);
+
+    this.datasets = [{ data, label: reportingCurrency }];
+
+    this.labels.length = 0;
+    [].push.apply(this.labels, labels);
   }
 }

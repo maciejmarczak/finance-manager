@@ -7,10 +7,12 @@ import { WalletService } from './wallet.service';
 import { CommonModule } from '@angular/common';
 import { ChartsModule } from 'ng2-charts';
 import { DashboardChartsComponent } from './dashboard/charts/dashboard-charts.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
+    FormsModule,
     ManagerRoutingModule,
     ChartsModule
   ],

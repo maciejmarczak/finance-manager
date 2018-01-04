@@ -9,10 +9,10 @@ import { AutoUnsubscribe } from '../../shared/auto-unsubscribe.annotation';
   template: `
     <div *ngIf="wallet" class="container-fluid py-3 px-md-5">
       <div class="row">
-        <div class="col-sm-12 col-md-6">
+        <div class="col-sm-12 col-lg-6">
           <fm-dashboard-charts [wallet]="wallet"></fm-dashboard-charts>
         </div>
-        <div class="col-sm-12 col-md-6">table</div>
+        <div class="col-sm-12 col-lg-6">table</div>
       </div>
     </div>
     <div *ngIf="!wallet" class="overlay">
