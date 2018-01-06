@@ -2,7 +2,7 @@ import { ChartConfig } from './chart-config.model';
 import { Wallet } from '../../wallet.model';
 
 import * as R from 'ramda';
-import { filterByCurrency, reduceByDate } from './data-utils';
+import { filterByCurrency, reduceByDate, toDataAndLabels } from './data-utils';
 
 export class SummaryChartConfig extends ChartConfig {
 
@@ -13,18 +13,17 @@ export class SummaryChartConfig extends ChartConfig {
 
   recalculate(wallet: Wallet, reportingCurrency: string): void {
 
-    const sumValuesPerDate = R.reduce(
-      (acc, curr) =>
-        acc.data.push((acc.data.slice(-1)[0] || 0) + curr[1])
-        && acc.labels.push(curr[0]) && acc,
-      { data: [], labels: [] }
+    let prev: number = 0;
+    const adjustValues = R.pipe(
+      R.toPairs, R.forEach((pair: [ string, number ]) =>
+        prev = (pair[1] += prev)), R.fromPairs
     );
 
     const { data, labels } = R.pipe(
       filterByCurrency(reportingCurrency),
       reduceByDate,
-      R.toPairs,
-      sumValuesPerDate
+      adjustValues,
+      toDataAndLabels
     )(wallet.operations);
 
     this.datasets = [{ data, label: reportingCurrency }];

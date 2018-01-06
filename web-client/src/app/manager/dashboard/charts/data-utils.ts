@@ -10,3 +10,14 @@ export const reduceByDate = R.reduceBy(
 export const filterByCurrency = (currency: string) => R.filter(
   R.propEq('currency', currency)
 );
+
+export const toDataAndLabels = R.pipe(
+  R.toPairs,
+  R.reduce(
+    (acc, pair) => ({
+      data: [ ...acc.data, pair[1] ],
+      labels: [ ...acc.labels, pair[0] ]
+    }),
+    { data: [], labels: [] }
+  )
+);
