@@ -7,6 +7,12 @@ export const reduceByDate = R.reduceBy(
   (op: Operation): string => op.date.toLocaleDateString()
 );
 
+export const reduceByCategory = R.reduceBy(
+  (acc: number, op: Operation): number => acc + Math.abs(op.value),
+  0,
+  (op: Operation): string => op.category
+);
+
 export const filterByCurrency = (currency: string) => R.filter(
   R.propEq('currency', currency)
 );

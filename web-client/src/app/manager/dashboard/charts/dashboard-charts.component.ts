@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { Wallet } from '../../wallet.model';
 import { SummaryChartConfig } from './summary-chart-config.model';
+import { CategoryChartConfig } from './category-chart-config.model';
 
 @Component({
   selector: 'fm-dashboard-charts',
@@ -18,6 +19,11 @@ import { SummaryChartConfig } from './summary-chart-config.model';
               [options]="charts.summary.options"
               [datasets]="charts.summary.datasets"
               [labels]="charts.summary.labels"></canvas>
+      <canvas baseChart class="my-4"
+              [chartType]="'pie'"
+              [options]="charts.category.options"
+              [datasets]="charts.category.datasets"
+              [labels]="charts.category.labels"></canvas>
     </div>
     <h3 *ngIf="wallet.isEmpty()">The wallet is empty.</h3>
   `
@@ -28,7 +34,8 @@ export class DashboardChartsComponent implements OnChanges {
   reportingCurrency: string = 'PLN';
 
   charts = {
-    summary: new SummaryChartConfig()
+    summary: new SummaryChartConfig(),
+    category: new CategoryChartConfig()
   };
 
   ngOnChanges() {
