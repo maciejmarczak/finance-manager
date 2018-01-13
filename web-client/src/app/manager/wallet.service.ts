@@ -10,6 +10,7 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 export class WalletService {
 
   private readonly operationsBaseUrl: string = 'manager/operations';
+  private operations: Operation[];
   private wallet$: Subject<Wallet>;
 
   constructor(private http: HttpClient) {}
@@ -21,6 +22,19 @@ export class WalletService {
   public loadWallet(): void {
     this.wallet$ = new ReplaySubject(1);
     this.http.get<Operation[]>(this.operationsBaseUrl)
-      .subscribe(operations => this.wallet$.next(new Wallet(operations)));
+      .subscribe(this.updateState.bind(this));
+  }
+
+  public deleteOperation(operationId: number): void {
+    const updatedOperations: Operation[] = this.operations
+      .filter(op => op.id !== operationId);
+
+    this.http.delete(`${this.operationsBaseUrl}/${operationId}`)
+      .subscribe(() => this.updateState(updatedOperations));
+  }
+
+  private updateState(operations: Operation[]): void {
+    this.operations = operations;
+    this.wallet$.next(new Wallet(operations));
   }
 }

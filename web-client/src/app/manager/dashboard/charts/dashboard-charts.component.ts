@@ -7,6 +7,7 @@ import { CategoryChartConfig } from './category-chart-config.model';
   selector: 'fm-dashboard-charts',
   template: `
     <div *ngIf="!wallet.isEmpty()">
+      <h5 class="my-4">Statistics</h5>
       <select
         class="form-control" [(ngModel)]="reportingCurrency"
         (ngModelChange)="recalculateCharts()">
@@ -25,13 +26,13 @@ import { CategoryChartConfig } from './category-chart-config.model';
               [datasets]="charts.category.datasets"
               [labels]="charts.category.labels"></canvas>
     </div>
-    <h3 *ngIf="wallet.isEmpty()">The wallet is empty.</h3>
+    <h5 *ngIf="wallet.isEmpty()">The wallet is empty.</h5>
   `
 })
 export class DashboardChartsComponent implements OnChanges {
 
   @Input() wallet: Wallet;
-  reportingCurrency: string = 'PLN';
+  reportingCurrency: string;
 
   charts = {
     summary: new SummaryChartConfig(),
@@ -39,6 +40,7 @@ export class DashboardChartsComponent implements OnChanges {
   };
 
   ngOnChanges() {
+    this.updateReportingCurrency();
     this.recalculateCharts();
   }
 
@@ -46,6 +48,13 @@ export class DashboardChartsComponent implements OnChanges {
     for (let chart in this.charts) {
       this.charts[chart].recalculate(
         this.wallet, this.reportingCurrency);
+    }
+  }
+
+  private updateReportingCurrency(): void {
+    const currencies: string[] = this.wallet.getCurrencies();
+    if (!currencies.includes(this.reportingCurrency)) {
+      this.reportingCurrency = currencies[0];
     }
   }
 }

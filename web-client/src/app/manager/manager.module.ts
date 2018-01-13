@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { ChartsModule } from 'ng2-charts';
 import { DashboardChartsComponent } from './dashboard/charts/dashboard-charts.component';
 import { FormsModule } from '@angular/forms';
+import { DashboardOperationsListComponent } from './dashboard/dashboard-operations-list.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { FormsModule } from '@angular/forms';
     ManagerComponent,
     ManagerNavbarComponent,
     DashboardComponent,
-    DashboardChartsComponent
+    DashboardChartsComponent,
+    DashboardOperationsListComponent
   ],
   providers: [
     WalletService

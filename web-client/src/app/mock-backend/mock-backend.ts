@@ -54,6 +54,14 @@ export class MockBackend implements InMemoryDbService {
     return undefined;
   }
 
+  delete(reqInfo: RequestInfo): Observable<any> {
+    if (reqInfo.url.startsWith('manager/operations')) {
+      return this.deleteOperation(reqInfo);
+    }
+
+    return undefined;
+  }
+
   private getCheckEmailTaken(reqInfo: RequestInfo): Observable<{ taken: boolean }> {
     const email: string = reqInfo.url.split('/')[2];
 
@@ -124,6 +132,22 @@ export class MockBackend implements InMemoryDbService {
           user: Object.assign({}, user, { token: user.id.toString() })
         },
         status: STATUS.OK
+      }
+    });
+  }
+
+  private deleteOperation(reqInfo: RequestInfo): Observable<any> {
+    const opId: number = parseInt(reqInfo.url.split('/').slice(-1)[0]);
+    const index: number = operations.findIndex(op => op.id === opId);
+
+    if (index !== -1) {
+      operations.splice(index, 1);
+    }
+
+    return reqInfo.utils.createResponse$(() => {
+      return {
+        body: {},
+        status: index !== -1 ? STATUS.OK : STATUS.BAD_REQUEST
       }
     });
   }

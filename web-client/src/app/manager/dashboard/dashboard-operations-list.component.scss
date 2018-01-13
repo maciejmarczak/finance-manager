@@ -1,0 +1,28 @@
+table {
+
+  font-size: 13px;
+  text-align: center;
+
+  tbody {
+    display: block;
+    max-height: 300px;
+    overflow-y: scroll;
+  }
+
+  thead, tr {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+  }
+
+  thead {
+    width: calc(100% - 1em);
+  }
+
+  .fa-trash {
+    cursor: pointer;
+    color: gray;
+    font-size: 15px;
+    &:hover { color: red; }
+  }
+}
