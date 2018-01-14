@@ -4,7 +4,7 @@ import { Operation } from '../../operation.model';
 export const reduceByDate = R.reduceBy(
   (acc: number, op: Operation): number => acc + op.value,
   0,
-  (op: Operation): string => op.date.toLocaleDateString()
+  (op: Operation): string => op.date.toDateString()
 );
 
 export const reduceByCategory = R.reduceBy(
