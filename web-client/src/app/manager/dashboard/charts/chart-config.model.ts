@@ -7,7 +7,7 @@ export interface Dataset {
 
 export abstract class ChartConfig {
   datasets: Dataset[] = [];
-  labels: string[] = [];
+  labels: string[] | Date[] = [];
   options = {};
 
   abstract recalculate(wallet: Wallet,

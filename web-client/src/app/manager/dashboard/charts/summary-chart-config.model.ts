@@ -7,7 +7,19 @@ import { filterByCurrency, reduceByDate, toDataAndLabels } from './data-utils';
 export class SummaryChartConfig extends ChartConfig {
 
   options = {
-    legend: false
+    legend: false,
+    scales: {
+      xAxes: [{
+        type: 'time',
+        time: {
+          unit: 'day',
+          unitStepSize: 1,
+          displayFormats: {
+            'day': 'MMM DD'
+          }
+        }
+      }]
+    }
   };
 
   recalculate(wallet: Wallet, reportingCurrency: string): void {
@@ -26,6 +38,6 @@ export class SummaryChartConfig extends ChartConfig {
     )(wallet.operations);
 
     this.datasets = [{ data, label: reportingCurrency }];
-    this.labels = labels;
+    this.labels = labels.map(t => new Date(t));
   }
 }
