@@ -7,9 +7,7 @@ import { Operation } from '../../operation.model';
 
 export class CategoryChartConfig extends ChartConfig {
 
-  options = {
-    legend: false
-  };
+  options = {};
 
   recalculate(wallet: Wallet, reportingCurrency: string): void {
 
