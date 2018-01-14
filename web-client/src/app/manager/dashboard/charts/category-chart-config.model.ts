@@ -7,7 +7,9 @@ import { Operation } from '../../operation.model';
 
 export class CategoryChartConfig extends ChartConfig {
 
-  options = {};
+  options = {
+    legend: false
+  };
 
   recalculate(wallet: Wallet, reportingCurrency: string): void {
 
@@ -21,8 +23,6 @@ export class CategoryChartConfig extends ChartConfig {
     )(expenses);
 
     this.datasets = [{ data, label: reportingCurrency }];
-
-    this.labels.length = 0;
-    [].push.apply(this.labels, labels);
+    this.labels = labels;
   }
 }

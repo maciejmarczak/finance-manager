@@ -5,7 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ManagerNavbarComponent } from './manager-navbar.component';
 import { WalletService } from './wallet.service';
 import { CommonModule } from '@angular/common';
-import { ChartsModule } from 'ng2-charts';
+import { ChartsModule } from 'ng2-charts-x';
 import { DashboardChartsComponent } from './dashboard/charts/dashboard-charts.component';
 import { FormsModule } from '@angular/forms';
 import { DashboardOperationsListComponent } from './dashboard/dashboard-operations-list.component';

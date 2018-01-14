@@ -27,7 +27,7 @@
     "core-js": "^2.4.1",
     "d3": "^4.12.0",
     "font-awesome": "^4.7.0",
-    "ng2-charts": "^1.6.0",
+    "ng2-charts-x": "^2.0.6",
     "ng2-toastr": "^4.1.2",
     "ngx-bootstrap": "^2.0.0-beta.8",
     "ramda": "^0.25.0",

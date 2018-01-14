@@ -7,7 +7,6 @@ import { filterByCurrency, reduceByDate, toDataAndLabels } from './data-utils';
 export class SummaryChartConfig extends ChartConfig {
 
   options = {
-    animation: false,
     legend: false
   };
 
@@ -27,8 +26,6 @@ export class SummaryChartConfig extends ChartConfig {
     )(wallet.operations);
 
     this.datasets = [{ data, label: reportingCurrency }];
-
-    this.labels.length = 0;
-    [].push.apply(this.labels, labels);
+    this.labels = labels;
   }
 }
