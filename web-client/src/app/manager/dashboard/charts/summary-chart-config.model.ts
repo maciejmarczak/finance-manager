@@ -7,6 +7,7 @@ import { Operation } from '../../operation.model';
 export class SummaryChartConfig extends ChartConfig {
 
   options = {
+    animation: false,
     legend: false,
     scales: {
       xAxes: [{

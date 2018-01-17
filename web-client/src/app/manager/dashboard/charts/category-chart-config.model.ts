@@ -6,7 +6,9 @@ import { Operation } from '../../operation.model';
 
 export class CategoryChartConfig extends ChartConfig {
 
-  options = {};
+  options = {
+    animation: false
+  };
 
   recalculate(operations: Operation[]): void {
 
