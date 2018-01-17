@@ -1,26 +1,27 @@
 import { ChartConfig } from './chart-config.model';
-import { Wallet } from '../../wallet.model';
 
 import * as R from 'ramda';
-import { filterByCurrency, reduceByCategory, toDataAndLabels } from './data-utils';
+import { filterExpenses, reduceByCategory, toDataAndLabels } from './data-utils';
 import { Operation } from '../../operation.model';
 
 export class CategoryChartConfig extends ChartConfig {
 
   options = {};
 
-  recalculate(wallet: Wallet, reportingCurrency: string): void {
+  recalculate(operations: Operation[]): void {
 
-    const expenses: Operation[] = R.filter(
-      op => op.value < 0, wallet.operations);
+    // As typescript compiler can't understand
+    // currying, I am pulling the filtering function
+    // out of the pipe.
+    const expenses: Operation[] =
+      filterExpenses(operations);
 
     const { data, labels } = R.pipe(
-      filterByCurrency(reportingCurrency),
       reduceByCategory,
       toDataAndLabels
     )(expenses);
 
-    this.datasets = [{ data, label: reportingCurrency }];
+    this.datasets = [{ data, label: operations[0].currency }];
     this.labels = labels;
   }
 }

@@ -1,4 +1,4 @@
-import { Wallet } from '../../wallet.model';
+import { Operation } from '../../operation.model';
 
 export interface Dataset {
   data: number[];
@@ -10,6 +10,5 @@ export abstract class ChartConfig {
   labels: string[] | Date[] = [];
   options = {};
 
-  abstract recalculate(wallet: Wallet,
-    reportingCurrency: string): void;
+  abstract recalculate(operations: Operation[]): void;
 }

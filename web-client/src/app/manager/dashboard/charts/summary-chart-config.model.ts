@@ -1,8 +1,8 @@
 import { ChartConfig } from './chart-config.model';
-import { Wallet } from '../../wallet.model';
 
 import * as R from 'ramda';
-import { filterByCurrency, reduceByDate, toDataAndLabels } from './data-utils';
+import { reduceByDate, toDataAndLabels } from './data-utils';
+import { Operation } from '../../operation.model';
 
 export class SummaryChartConfig extends ChartConfig {
 
@@ -22,7 +22,7 @@ export class SummaryChartConfig extends ChartConfig {
     }
   };
 
-  recalculate(wallet: Wallet, reportingCurrency: string): void {
+  recalculate(operations: Operation[]): void {
 
     let prev: number = 0;
     const adjustValues = R.pipe(
@@ -31,13 +31,12 @@ export class SummaryChartConfig extends ChartConfig {
     );
 
     const { data, labels } = R.pipe(
-      filterByCurrency(reportingCurrency),
       reduceByDate,
       adjustValues,
       toDataAndLabels
-    )(wallet.operations);
+    )(operations);
 
-    this.datasets = [{ data, label: reportingCurrency }];
+    this.datasets = [{ data, label: operations[0].currency }];
     this.labels = labels.map(t => new Date(t));
   }
 }

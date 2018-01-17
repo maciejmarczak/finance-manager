@@ -13,8 +13,8 @@ export const reduceByCategory = R.reduceBy(
   (op: Operation): string => op.category
 );
 
-export const filterByCurrency = (currency: string) => R.filter(
-  R.propEq('currency', currency)
+export const filterExpenses = R.filter(
+  (op: Operation): boolean => op.value < 0
 );
 
 export const toDataAndLabels = R.pipe(

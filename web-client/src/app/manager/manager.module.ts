@@ -9,6 +9,7 @@ import { ChartsModule } from 'ng2-charts-x';
 import { DashboardChartsComponent } from './dashboard/charts/dashboard-charts.component';
 import { FormsModule } from '@angular/forms';
 import { DashboardOperationsListComponent } from './dashboard/dashboard-operations-list.component';
+import { ChartsDataFiltersComponent } from './dashboard/charts/charts-data-filters.component';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { DashboardOperationsListComponent } from './dashboard/dashboard-operatio
     ManagerNavbarComponent,
     DashboardComponent,
     DashboardChartsComponent,
+    ChartsDataFiltersComponent,
     DashboardOperationsListComponent
   ],
   providers: [
