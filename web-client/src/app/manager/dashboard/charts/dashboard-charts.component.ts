@@ -13,7 +13,7 @@ import { Operation } from '../../operation.model';
         [wallet]="wallet"
         (filtersUpdated)="recalculateCharts($event)">
       </fm-charts-data-filters>
-      <div *ngIf="filteredOperations">
+      <div *ngIf="filteredOperations && filteredOperations.length > 0">
         <canvas baseChart class="my-4"
                 [chartType]="'line'"
                 [options]="charts.summary.options"
@@ -24,6 +24,9 @@ import { Operation } from '../../operation.model';
                 [options]="charts.category.options"
                 [datasets]="charts.category.datasets"
                 [labels]="charts.category.labels"></canvas>
+      </div>
+      <div class="my-4" *ngIf="filteredOperations && filteredOperations.length === 0">
+        There are no operations matching this criteria.
       </div>
     </div>
     <h5 *ngIf="wallet.isEmpty()">The wallet is empty.</h5>

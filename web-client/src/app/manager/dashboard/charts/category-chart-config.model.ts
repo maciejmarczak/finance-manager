@@ -12,18 +12,13 @@ export class CategoryChartConfig extends ChartConfig {
 
   recalculate(operations: Operation[]): void {
 
-    // As typescript compiler can't understand
-    // currying, I am pulling the filtering function
-    // out of the pipe.
-    const expenses: Operation[] =
-      filterExpenses(operations);
-
     const { data, labels } = R.pipe(
+      filterExpenses,
       reduceByCategory,
       toDataAndLabels
-    )(expenses);
+    )(operations);
 
-    this.datasets = [{ data, label: operations[0].currency }];
+    this.datasets = [{ data, label: operations[0] && operations[0].currency }];
     this.labels = labels;
   }
 }

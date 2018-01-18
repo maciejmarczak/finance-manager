@@ -17,6 +17,15 @@ export const filterExpenses = R.filter(
   (op: Operation): boolean => op.value < 0
 );
 
+export const filterByCurrency = (currency: String) => R.filter(
+  R.propEq('currency', currency)
+);
+
+export const filterByMonth = (date: Date) => R.filter(
+  R.propSatisfies((d: Date): boolean => d.getMonth() === date.getMonth()
+    && d.getFullYear() === date.getFullYear(), 'date')
+);
+
 export const toDataAndLabels = R.pipe(
   R.toPairs,
   R.reduce(

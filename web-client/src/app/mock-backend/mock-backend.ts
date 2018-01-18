@@ -15,12 +15,12 @@ const users: User[] = [
 
 const operations: Operation[] = [
   { id: 1, issuerId: 1, date: new Date('2017-12-10'), value: -20, currency: 'EUR', category: 'Food' },
-  { id: 2, issuerId: 1, date: new Date('2017-12-11'), value: -80, currency: 'PLN', category: 'Fuel' },
+  { id: 2, issuerId: 1, date: new Date('2018-01-11'), value: -80, currency: 'PLN', category: 'Fuel' },
   { id: 3, issuerId: 1, date: new Date('2017-12-11'), value: -30, currency: 'EUR', category: 'Food' },
-  { id: 4, issuerId: 1, date: new Date('2017-12-11'), value: -30, currency: 'PLN', category: 'Food' },
-  { id: 5, issuerId: 1, date: new Date('2017-12-13'), value: -70, currency: 'PLN', category: 'Fun' },
-  { id: 6, issuerId: 1, date: new Date('2017-12-15'), value: -35, currency: 'PLN', category: 'Education' },
-  { id: 7, issuerId: 1, date: new Date('2017-12-12'), value: 900, currency: 'PLN', category: 'Work' }
+  { id: 4, issuerId: 1, date: new Date('2018-01-11'), value: -30, currency: 'PLN', category: 'Food' },
+  { id: 5, issuerId: 1, date: new Date('2018-01-13'), value: -70, currency: 'PLN', category: 'Fun' },
+  { id: 6, issuerId: 1, date: new Date('2018-01-15'), value: -35, currency: 'PLN', category: 'Education' },
+  { id: 7, issuerId: 1, date: new Date('2018-01-12'), value: 900, currency: 'PLN', category: 'Work' }
 ];
 
 const passwords = {

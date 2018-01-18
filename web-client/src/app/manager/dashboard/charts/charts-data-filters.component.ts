@@ -1,6 +1,8 @@
+import * as R from 'ramda';
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { Wallet } from '../../wallet.model';
 import { Operation } from '../../operation.model';
+import { filterByCurrency, filterByMonth } from './data-utils';
 
 @Component({
   selector: 'fm-charts-data-filters',
@@ -17,9 +19,10 @@ import { Operation } from '../../operation.model';
 export class ChartsDataFiltersComponent implements OnChanges {
 
   @Input() wallet: Wallet;
-  @Output() filtersUpdated: EventEmitter<Operation[]> = new EventEmitter<Operation[]>();
+  @Output() filtersUpdated: EventEmitter<Operation[]> = new EventEmitter();
 
   reportingCurrency: string;
+  reportingMonth: Date = new Date();
 
   ngOnChanges() {
     this.updateFilters();
@@ -28,8 +31,10 @@ export class ChartsDataFiltersComponent implements OnChanges {
   updateFilters(): void {
     this.updateReportingCurrency();
 
-    const filteredOperations: Operation[] = this.wallet.operations
-      .filter(op => op.currency === this.reportingCurrency);
+    const filteredOperations: Operation[] = R.pipe(
+      filterByCurrency(this.reportingCurrency),
+      filterByMonth(this.reportingMonth)
+    )(this.wallet.operations);
 
     this.filtersUpdated.emit(filteredOperations);
   }

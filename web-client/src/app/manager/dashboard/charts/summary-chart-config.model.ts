@@ -37,7 +37,7 @@ export class SummaryChartConfig extends ChartConfig {
       toDataAndLabels
     )(operations);
 
-    this.datasets = [{ data, label: operations[0].currency }];
+    this.datasets = [{ data, label: operations[0] && operations[0].currency }];
     this.labels = labels.map(t => new Date(t));
   }
 }
