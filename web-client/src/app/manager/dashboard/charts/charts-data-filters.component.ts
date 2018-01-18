@@ -1,4 +1,6 @@
 import * as R from 'ramda';
+import * as moment from 'moment';
+
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { Wallet } from '../../wallet.model';
 import { Operation } from '../../operation.model';
@@ -14,6 +16,11 @@ import { filterByCurrency, filterByMonth } from './data-utils';
         {{ ccy }}
       </option>
     </select>
+    <div class="my-4 text-center">
+      <i class="fa fa-arrow-left"></i>
+      {{ formatReportingMonth() }}
+      <i class="fa fa-arrow-right"></i>
+    </div>
   `
 })
 export class ChartsDataFiltersComponent implements OnChanges {
@@ -37,6 +44,10 @@ export class ChartsDataFiltersComponent implements OnChanges {
     )(this.wallet.operations);
 
     this.filtersUpdated.emit(filteredOperations);
+  }
+
+  formatReportingMonth(): string {
+    return moment(this.reportingMonth).format('MMMM YYYY');
   }
 
   private updateReportingCurrency(): void {
