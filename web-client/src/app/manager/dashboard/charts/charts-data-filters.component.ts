@@ -17,40 +17,46 @@ import { filterByCurrency, filterByMonth } from './data-utils';
       </option>
     </select>
     <div class="my-4 text-center">
-      <i class="fa fa-arrow-left"></i>
+      <div (click)="changeMonth('subtract')" class="btn btn-dark mx-2">Prev</div>
       {{ formatReportingMonth() }}
-      <i class="fa fa-arrow-right"></i>
+      <div (click)="changeMonth('add')" class="btn btn-dark mx-2">Next</div>
     </div>
   `
 })
 export class ChartsDataFiltersComponent implements OnChanges {
 
   @Input() wallet: Wallet;
-  @Output() filtersUpdated: EventEmitter<Operation[]> = new EventEmitter();
+  @Output() operationsRecalculated: EventEmitter<Operation[]> = new EventEmitter();
 
   reportingCurrency: string;
   reportingMonth: Date = new Date();
 
   ngOnChanges() {
+    this.resetReportingCurrency();
     this.updateFilters();
   }
 
   updateFilters(): void {
-    this.updateReportingCurrency();
-
     const filteredOperations: Operation[] = R.pipe(
       filterByCurrency(this.reportingCurrency),
       filterByMonth(this.reportingMonth)
     )(this.wallet.operations);
 
-    this.filtersUpdated.emit(filteredOperations);
+    this.operationsRecalculated.emit(filteredOperations);
   }
 
   formatReportingMonth(): string {
     return moment(this.reportingMonth).format('MMMM YYYY');
   }
 
-  private updateReportingCurrency(): void {
+  changeMonth(action: string): void {
+    this.reportingMonth = moment(this.reportingMonth)
+      [action](1, 'months').toDate();
+
+    this.updateFilters();
+  }
+
+  private resetReportingCurrency(): void {
     const currencies: string[] = this.wallet.getCurrencies();
     if (!currencies.includes(this.reportingCurrency)) {
       this.reportingCurrency = currencies[0];

@@ -11,7 +11,7 @@ import { Operation } from '../../operation.model';
       <h5 class="my-4">Statistics</h5>
       <fm-charts-data-filters
         [wallet]="wallet"
-        (filtersUpdated)="recalculateCharts($event)">
+        (operationsRecalculated)="recalculateCharts($event)">
       </fm-charts-data-filters>
       <div *ngIf="filteredOperations && filteredOperations.length > 0">
         <canvas baseChart class="my-4"
