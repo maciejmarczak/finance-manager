@@ -17,9 +17,9 @@ import { filterByCurrency, filterByMonth } from './data-utils';
       </option>
     </select>
     <div class="my-4 text-center">
-      <div (click)="changeMonth('subtract')" class="btn btn-dark mx-2">Prev</div>
-      {{ formatReportingMonth() }}
-      <div (click)="changeMonth('add')" class="btn btn-dark mx-2">Next</div>
+      <div (click)="changeMonth('subtract')" class="btn btn-dark w-20">Prev</div>
+      <div class="d-inline-block w-50">{{ formatReportingMonth() }}</div>
+      <div (click)="changeMonth('add')" class="btn btn-dark w-20">Next</div>
     </div>
   `
 })
