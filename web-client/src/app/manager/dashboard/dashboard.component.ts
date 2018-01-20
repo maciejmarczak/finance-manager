@@ -13,7 +13,7 @@ import { AutoUnsubscribe } from '../../shared/auto-unsubscribe.annotation';
           <fm-dashboard-charts [wallet]="wallet"></fm-dashboard-charts>
         </div>
         <div class="col-sm-12 col-md-6">
-          <fm-dashboard-operations-list [wallet]="wallet"></fm-dashboard-operations-list>
+          <fm-operations-list [wallet]="wallet"></fm-operations-list>
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@ import { Wallet } from '../wallet.model';
 import { WalletService } from '../wallet.service';
 
 @Component({
-  selector: 'fm-dashboard-operations-list',
+  selector: 'fm-operations-list',
   template: `
     <h5 class="my-4">Operations List</h5>
     <table class="table">
@@ -25,9 +25,9 @@ import { WalletService } from '../wallet.service';
       </tbody>
     </table>
   `,
-  styleUrls: ['dashboard-operations-list.component.scss']
+  styleUrls: ['operations-list.component.scss']
 })
-export class DashboardOperationsListComponent {
+export class OperationsListComponent {
 
   @Input() wallet: Wallet;
 
