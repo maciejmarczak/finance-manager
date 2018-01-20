@@ -1,9 +1,10 @@
+import * as moment from 'moment';
+
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WalletService } from '../wallet.service';
 import { Operation } from '../operation.model';
-import moment = require('moment');
 
 @Component({
   selector: 'fm-add-operation',
