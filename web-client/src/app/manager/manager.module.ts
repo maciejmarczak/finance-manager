@@ -7,16 +7,24 @@ import { WalletService } from './wallet.service';
 import { CommonModule } from '@angular/common';
 import { ChartsModule } from 'ng2-charts-x';
 import { DashboardChartsComponent } from './dashboard/charts/dashboard-charts.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OperationsListComponent } from './dashboard/operations-list.component';
 import { ChartsDataFiltersComponent } from './dashboard/charts/charts-data-filters.component';
+import { BsDatepickerModule, ModalModule, TypeaheadModule } from 'ngx-bootstrap';
+import { AddOperationComponent } from './dashboard/add-operation.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
+    SharedModule,
     ManagerRoutingModule,
-    ChartsModule
+    ChartsModule,
+    ModalModule,
+    TypeaheadModule,
+    BsDatepickerModule
   ],
   declarations: [
     ManagerComponent,
@@ -24,7 +32,11 @@ import { ChartsDataFiltersComponent } from './dashboard/charts/charts-data-filte
     DashboardComponent,
     DashboardChartsComponent,
     ChartsDataFiltersComponent,
-    OperationsListComponent
+    OperationsListComponent,
+    AddOperationComponent
+  ],
+  entryComponents: [
+    AddOperationComponent
   ],
   providers: [
     WalletService

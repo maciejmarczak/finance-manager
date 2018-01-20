@@ -18,6 +18,12 @@ export class Wallet {
       .filter((ccy, idx, arr) => arr.indexOf(ccy) === idx);
   }
 
+  public getCategories(): string[] {
+    return this.operations
+      .map(op => op.category)
+      .filter((ccy, idx, arr) => arr.indexOf(ccy) === idx);
+  }
+
   public isEmpty(): boolean {
     return this.operations.length === 0;
   }

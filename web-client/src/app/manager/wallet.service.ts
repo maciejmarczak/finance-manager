@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Wallet } from './wallet.model';
 import { Observable } from 'rxjs/Observable';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable()
 export class WalletService {
@@ -13,7 +14,8 @@ export class WalletService {
   private operations: Operation[];
   private wallet$: Subject<Wallet>;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+              private authService: AuthService) {}
 
   public getWallet(): Observable<Wallet> {
     return this.wallet$.asObservable();
@@ -30,6 +32,14 @@ export class WalletService {
       .filter(op => op.id !== operationId);
 
     this.http.delete(`${this.operationsBaseUrl}/${operationId}`)
+      .subscribe(() => this.updateState(updatedOperations));
+  }
+
+  public addOperation(operation: Operation): void {
+    const updatedOperations: Operation[] = [ ...this.operations, operation ];
+    operation.issuerId = this.authService.getUser().id;
+
+    this.http.post(`${this.operationsBaseUrl}`, operation)
       .subscribe(() => this.updateState(updatedOperations));
   }
 

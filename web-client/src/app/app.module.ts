@@ -12,6 +12,7 @@ import { MockBackend } from './mock-backend/mock-backend';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastModule } from 'ng2-toastr';
 import { ManagerModule } from './manager/manager.module';
+import { BsDatepickerModule, ModalModule, TypeaheadModule } from 'ngx-bootstrap';
 
 const httpModules: any[] = [
   HttpClientModule
@@ -27,6 +28,9 @@ if (environment.useMockBackend) {
     BrowserModule,
     BrowserAnimationsModule,
     ToastModule.forRoot(),
+    ModalModule.forRoot(),
+    TypeaheadModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     ...httpModules,
     AppRoutingModule,
     AuthModule,

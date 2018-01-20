@@ -54,6 +54,10 @@ export class MockBackend implements InMemoryDbService {
       return this.postRegister(reqInfo);
     }
 
+    if (reqInfo.url === 'manager/operations') {
+      return this.postOperations(reqInfo);
+    }
+
     return undefined;
   }
 
@@ -134,6 +138,20 @@ export class MockBackend implements InMemoryDbService {
         body: {
           user: Object.assign({}, user, { token: user.id.toString() })
         },
+        status: STATUS.OK
+      }
+    });
+  }
+
+  private postOperations(reqInfo: RequestInfo): Observable<any> {
+    const operation: Operation = MockBackend.getRequestBody(reqInfo);
+
+    operation.id = operations.length + 1;
+    operations.push(operation);
+
+    return reqInfo.utils.createResponse$(() => {
+      return {
+        body: {},
         status: STATUS.OK
       }
     });
