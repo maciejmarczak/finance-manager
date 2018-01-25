@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
   }
 
   private onSuccessfulLogin(): void {
+    this.loading = false;
     this.router.navigate(['/']);
   }
 

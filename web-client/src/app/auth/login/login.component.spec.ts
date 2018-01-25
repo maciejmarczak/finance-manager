@@ -13,21 +13,6 @@ import 'rxjs/add/operator/delay';
 
 describe('Component: Login', () => {
 
-  const mockData = {
-    user: {
-      id: 1,
-      email: 'user@test.pl'
-    },
-    credentials: {
-      email: 'user@test.pl',
-      password: 'password'
-    },
-    wrongCredentials: {
-      email: 'user@test.pl',
-      password: 'wrong_password'
-    }
-  };
-
   let fixture: ComponentFixture<LoginComponent>;
   let comp: LoginComponent;
   let authService: AuthService;
@@ -48,52 +33,88 @@ describe('Component: Login', () => {
     authService = fixture.debugElement.injector.get(AuthService);
   });
 
+  it('should initialize the form on component creation', () => {
+    expect(comp.myForm).toBeFalsy();
+    fixture.detectChanges();
+
+    expect(comp.myForm.controls.email).toBeTruthy();
+    expect(comp.myForm.controls.password).toBeTruthy();
+  });
+
+  it('should have loading set to true during the async login call', () => {
+    fixture.detectChanges();
+
+    spyOn(authService, 'login').and.callFake(() => {
+      expect(comp.loading).toBeTruthy();
+      return Observable.of({});
+    });
+
+    expect(comp.loading).toBeFalsy();
+    comp.login();
+    expect(comp.loading).toBeFalsy();
+  });
+
   it('should navigate to "/" on successful login', () => {
     fixture.detectChanges();
 
     const navigateSpy = spyOn(comp['router'], 'navigate');
-    const loginSpy = spyOn(authService, 'login');
-
-    comp.myForm.setValue(mockData.credentials);
-
-    loginSpy.and.callFake(loginForm => {
-      expect(loginForm.email).toBe(mockData.credentials.email);
-      expect(loginForm.password).toBe(mockData.credentials.password);
-      expect(comp.loading).toBeTruthy();
-
-      return Observable.of(mockData.user);
-    });
+    spyOn(authService, 'login').and.callFake(() => Observable.of({}));
 
     comp.login();
     expect(navigateSpy).toHaveBeenCalledWith(['/']);
   });
 
-  it('should clear the form and display error message on failed login', () => {
+  it('should pass user supplied values to authService.login', () => {
     fixture.detectChanges();
 
-    const loginSpy = spyOn(authService, 'login');
-    const resetSpy = spyOn(comp.myForm, 'reset');
+    const credentials = {
+      email: 'user@test.pl',
+      password: 'password'
+    };
 
-    comp.myForm.setValue(mockData.wrongCredentials);
+    const emailInput = getFormInput('input[type=email]');
+    const passwordInput = getFormInput('input[type=password]');
 
-    loginSpy.and.callFake(loginForm => {
-      expect(loginForm.email).toBe(mockData.wrongCredentials.email);
-      expect(loginForm.password).toBe(mockData.wrongCredentials.password);
-      expect(comp.loading).toBeTruthy();
+    emailInput.value = credentials.email;
+    passwordInput.value = credentials.password;
 
-      return Observable.throw(new Error());
+    emailInput.dispatchEvent(new Event('input'));
+    passwordInput.dispatchEvent(new Event('input'));
+
+    fixture.detectChanges();
+
+    spyOn(authService, 'login').and.callFake(loginForm => {
+      expect(loginForm.email).toBe(credentials.email);
+      expect(loginForm.password).toBe(credentials.password);
+
+      return Observable.of({});
     });
 
     comp.login();
+  });
 
+  it('should set wrongCredentials to true on failed login', () => {
     fixture.detectChanges();
 
-    expect(resetSpy).toHaveBeenCalled();
-    expect(comp.loading).toBeFalsy();
-    expect(comp.wrongCredentials).toBeTruthy();
+    spyOn(authService, 'login').and.returnValue(Observable.throw(new Error()));
 
-    const alert = fixture.debugElement.query(By.css('.alert'));
-    expect(alert).toBeTruthy();
+    expect(comp.wrongCredentials).toBeFalsy();
+    comp.login();
+    expect(comp.wrongCredentials).toBeTruthy();
   });
+
+  it('should reset the form on failed login', () => {
+    fixture.detectChanges();
+
+    const resetSpy = spyOn(comp.myForm, 'reset');
+    spyOn(authService, 'login').and.returnValue(Observable.throw(new Error()));
+
+    comp.login();
+    expect(resetSpy).toHaveBeenCalled();
+  });
+
+  function getFormInput(selector) {
+    return fixture.debugElement.query(By.css(selector)).nativeElement;
+  }
 
 });
