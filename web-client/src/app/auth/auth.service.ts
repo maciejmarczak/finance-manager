@@ -7,11 +7,12 @@ import 'rxjs/add/operator/do';
 import { User } from './user.model';
 import { RegisterForm } from './register/register-form.model';
 import { Router } from '@angular/router';
+import { environment as env } from '../../environments/environment';
 
 @Injectable()
 export class AuthService {
 
-  private readonly authBaseUrl: string = 'auth';
+  private readonly authBaseUrl: string = `${env.restApiUrl}auth`;
   private storage: Storage = localStorage;
 
   constructor(private http: HttpClient, private router: Router) {}

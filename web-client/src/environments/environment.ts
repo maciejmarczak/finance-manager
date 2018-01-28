@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  useMockBackend: true
+  useMockBackend: true,
+  restApiUrl: ''
 };

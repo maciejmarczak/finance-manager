@@ -6,11 +6,12 @@ import { Wallet } from './wallet.model';
 import { Observable } from 'rxjs/Observable';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { AuthService } from '../auth/auth.service';
+import { environment as env } from '../../environments/environment';
 
 @Injectable()
 export class WalletService {
 
-  private readonly operationsBaseUrl: string = 'manager/operations';
+  private readonly operationsBaseUrl: string = `${env.restApiUrl}manager/operations`;
   private operations: Operation[];
   private wallet$: Subject<Wallet>;
 
