@@ -1069,7 +1069,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "table {\n  font-size: 13px;\n  text-align: center; }\n  table tbody {\n    display: block;\n    max-height: 300px;\n    overflow-y: scroll; }\n  table thead, table tr {\n    display: table;\n    table-layout: fixed;\n    width: 100%; }\n  table thead {\n    width: calc(100% - 1em); }\n  table .fa-trash {\n    cursor: pointer;\n    color: gray;\n    font-size: 15px; }\n  table .fa-trash:hover {\n      color: red; }\n", ""]);
+exports.push([module.i, "table {\n  font-size: 12px;\n  text-align: center; }\n  table tbody {\n    display: block;\n    max-height: 300px;\n    overflow-y: scroll; }\n  table thead, table tr {\n    display: table;\n    table-layout: fixed;\n    width: 100%; }\n  table thead {\n    width: calc(100% - 1em); }\n  table .fa-trash {\n    cursor: pointer;\n    color: gray;\n    font-size: 15px; }\n  table .fa-trash:hover {\n      color: red; }\n", ""]);
 
 // exports
 
