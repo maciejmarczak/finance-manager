@@ -19,6 +19,10 @@ table {
     width: calc(100% - 1em);
   }
 
+  td {
+    white-space: nowrap;
+  }
+
   .fa-trash {
     cursor: pointer;
     color: gray;
