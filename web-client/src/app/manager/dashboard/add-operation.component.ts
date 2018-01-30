@@ -21,6 +21,7 @@ import { Operation } from '../operation.model';
           <div class="form-group col-sm-6">
             <label for="date">Date</label>
             <input bsDatepicker
+                   [bsConfig]="bsConfig"
                    type="text"
                    formControlName="date"
                    class="form-control"
@@ -82,13 +83,18 @@ export class AddOperationComponent implements OnInit {
   categories: string[] = [];
   currencies: string[] = [];
 
+  bsConfig = {
+    dateInputFormat: 'YYYY-MM-DD',
+    containerClass: 'theme-dark-blue'
+  };
+
   constructor(public bsModalRef: BsModalRef,
               private fb: FormBuilder,
               private walletService: WalletService) {}
 
   ngOnInit() {
     this.myForm = this.fb.group({
-      date: [new Date().toLocaleDateString(), Validators.required],
+      date: [new Date().toISOString(), Validators.required],
       value: [0, Validators.required],
       currency: ['', Validators.required],
       category: ['', Validators.required]

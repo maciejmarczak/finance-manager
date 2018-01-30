@@ -19,7 +19,7 @@ import { AddOperationComponent } from './add-operation.component';
       </thead>
       <tbody *ngIf="!wallet.isEmpty()">
       <tr *ngFor="let op of wallet.operations">
-        <td>{{ op.date.toLocaleDateString() }}</td>
+        <td>{{ op.date.toISOString().split('T')[0] }}</td>
         <td>{{ op.value + ' ' + op.currency }}</td>
         <td>{{ op.category }}</td>
         <td><i (click)="deleteOperation(op.id)" class="fa fa-trash"></i></td>
