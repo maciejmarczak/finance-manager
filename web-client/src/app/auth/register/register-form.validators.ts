@@ -1,11 +1,15 @@
 import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/switchMap';
 
 export class EmailValidators {
   static emailTaken(authService: AuthService): ValidatorFn {
     return function(c: AbstractControl): ValidationErrors {
-      return authService.checkEmailTaken(c.value).map(
-        isTaken => isTaken ? { emailTaken: true } : null
+      return Observable.timer(500).switchMap(() =>
+        authService
+          .checkEmailTaken(c.value)
+          .map(isTaken => isTaken ? { emailTaken: true } : null)
       );
     }
   }
