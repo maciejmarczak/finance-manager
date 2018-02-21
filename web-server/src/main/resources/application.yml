@@ -1,2 +1,4 @@
+client.origin: http://localhost:4200
+
 auth.jwt.secret: ${FM_AUTH_JWT_SECRET}
 auth.jwt.duration: ${FM_AUTH_JWT_DURATION}

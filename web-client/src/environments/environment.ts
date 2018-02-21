@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-  useMockBackend: true,
-  restApiUrl: ''
+  useMockBackend: false,
+  restApiUrl: 'http://localhost:8080/'
 };
