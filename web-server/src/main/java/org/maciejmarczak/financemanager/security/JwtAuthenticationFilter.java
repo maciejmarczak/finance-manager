@@ -2,6 +2,7 @@ package org.maciejmarczak.financemanager.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.maciejmarczak.financemanager.user.User;
+import org.maciejmarczak.financemanager.user.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,11 +20,15 @@ class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
+    private final UserService userService;
 
     JwtAuthenticationFilter(AuthenticationManager authenticationManager,
-                                   JwtUtils jwtUtils) {
+                                   JwtUtils jwtUtils, UserService userService) {
         this.authenticationManager = authenticationManager;
         this.jwtUtils = jwtUtils;
+        this.userService = userService;
+
+        setFilterProcessesUrl("/auth/login");
     }
 
     @Override
@@ -51,7 +56,7 @@ class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
             HttpServletResponse response, FilterChain chain, Authentication authResult)
             throws IOException, ServletException {
 
-        final User user = (User) authResult.getPrincipal();
+        final User user = userService.findByEmail(authResult.getName());
         user.setToken(jwtUtils.createToken(user));
 
         response.getWriter().write(new ObjectMapper().writeValueAsString(user));

@@ -44,6 +44,9 @@ export class WalletService {
   }
 
   private updateState(operations: Operation[]): void {
+    // convert JSON unix timestamps to dates
+    operations.forEach(op => op.date = new Date(op.date));
+
     this.operations = operations;
     this.wallet$.next(new Wallet(operations));
   }

@@ -16,7 +16,7 @@ class JwtUtils {
     private String secret;
 
     @Value("${auth.jwt.duration}")
-    private Long duration;
+    private Integer duration;
 
     String createToken(User user) {
         return Jwts.builder()
@@ -35,7 +35,7 @@ class JwtUtils {
 
         if (claims != null) {
             String email = claims.get(CustomClaims.USER_EMAIL, String.class);
-            long id = claims.get(CustomClaims.USER_ID, Integer.class).longValue();
+            int id = claims.get(CustomClaims.USER_ID, Integer.class);
 
             User user = new User(email, token);
             user.setId(id);

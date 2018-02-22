@@ -18,7 +18,7 @@ public class Operation {
 
     @Id
     @GeneratedValue
-    private long id;
+    private int id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "issuer_id")
