@@ -20,7 +20,7 @@ class OperationService {
         return operationRepository.save(operation);
     }
 
-    List<Operation> getAllOperationsByIssuer(User user) {
-        return operationRepository.getAllByIssuerId(user.getId());
+    List<Operation> getAllOperationsByIssuer(User issuer) {
+        return operationRepository.getAllByIssuerId(issuer.getId());
     }
 }

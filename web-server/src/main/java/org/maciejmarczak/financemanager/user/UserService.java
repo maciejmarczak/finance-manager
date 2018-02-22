@@ -20,7 +20,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // an email is considered to be a username
+        // email == username
         final User user = findByEmail(username);
 
         if (user == null) {
