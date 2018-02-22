@@ -8,10 +8,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -24,6 +21,7 @@ public class User {
 
     @Email
     @NotBlank
+    @Column(unique = true)
     private String email;
 
     @Length(min = 5)

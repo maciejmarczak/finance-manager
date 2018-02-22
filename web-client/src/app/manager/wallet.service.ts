@@ -37,11 +37,10 @@ export class WalletService {
   }
 
   public addOperation(operation: Operation): void {
-    const updatedOperations: Operation[] = [ ...this.operations, operation ];
     operation.issuerId = this.authService.getUser().id;
 
-    this.http.post(`${this.operationsBaseUrl}`, operation)
-      .subscribe(() => this.updateState(updatedOperations));
+    this.http.post<Operation>(`${this.operationsBaseUrl}`, operation)
+      .subscribe(savedOperation => this.updateState([ ...this.operations, savedOperation ]));
   }
 
   private updateState(operations: Operation[]): void {

@@ -151,7 +151,7 @@ export class MockBackend implements InMemoryDbService {
 
     return reqInfo.utils.createResponse$(() => {
       return {
-        body: {},
+        body: operation,
         status: STATUS.OK
       }
     });
