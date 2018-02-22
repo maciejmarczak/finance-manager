@@ -1,5 +1,6 @@
 package org.maciejmarczak.financemanager.security;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.maciejmarczak.financemanager.user.User;
@@ -18,28 +19,35 @@ class JwtUtils {
     private Long duration;
 
     String createToken(User user) {
-        return createToken(user.getEmail());
-    }
-
-    String createToken(String email) {
         return Jwts.builder()
-                .setSubject(email)
+                .claim(CustomClaims.USER_EMAIL, user.getEmail())
+                .claim(CustomClaims.USER_ID, user.getId())
                 .setExpiration(new Date(System.currentTimeMillis() + duration))
                 .signWith(SignatureAlgorithm.HS512, secret)
                 .compact();
     }
 
     User parseToken(String token) {
-        final String email = Jwts.parser()
+        final Claims claims = Jwts.parser()
                 .setSigningKey(secret)
                 .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
+                .getBody();
 
-        if (email != null) {
-            return new User(email, token);
+        if (claims != null) {
+            String email = claims.get(CustomClaims.USER_EMAIL, String.class);
+            long id = claims.get(CustomClaims.USER_ID, Integer.class).longValue();
+
+            User user = new User(email, token);
+            user.setId(id);
+
+            return user;
         }
 
         return null;
+    }
+
+    private static class CustomClaims {
+        private static final String USER_EMAIL = "userEmail";
+        private static final String USER_ID = "userId";
     }
 }

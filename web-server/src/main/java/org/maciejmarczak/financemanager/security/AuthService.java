@@ -29,9 +29,11 @@ class AuthService {
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userService.save(user);
+
         user.setToken(jwtUtils.createToken(user));
 
-        return userService.save(user);
+        return user;
     }
 
     boolean isEmailTaken(String email) {
