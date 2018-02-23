@@ -3,6 +3,7 @@ package org.maciejmarczak.financemanager.user;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
@@ -12,8 +13,9 @@ import javax.persistence.*;
 
 @Entity
 @Data
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-public class User {
+public class User extends AbstractUserDetails {
 
     @Id
     @GeneratedValue
@@ -36,5 +38,10 @@ public class User {
     public User(String email, String token) {
         this.email = email;
         this.token = token;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
     }
 }

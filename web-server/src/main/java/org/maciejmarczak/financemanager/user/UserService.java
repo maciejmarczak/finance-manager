@@ -6,8 +6,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-
 @Service
 public class UserService implements UserDetailsService {
 
@@ -27,8 +25,7 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
 
-        return new org.springframework.security.core.userdetails.User(
-                username, user.getPassword(), Collections.emptyList());
+        return user;
     }
 
     public User findByEmail(String email) {
