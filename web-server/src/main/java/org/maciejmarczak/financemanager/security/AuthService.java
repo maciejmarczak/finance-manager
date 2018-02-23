@@ -9,21 +9,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-class AuthService {
+public class AuthService {
 
     private final UserService userService;
     private final JwtUtils jwtUtils;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    AuthService(UserService userService, PasswordEncoder passwordEncoder,
+    public AuthService(UserService userService, PasswordEncoder passwordEncoder,
                 JwtUtils jwtUtils) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.jwtUtils = jwtUtils;
     }
 
-    User register(User user) {
+    public User register(User user) {
         if (isEmailTaken(user.getEmail())) {
             throw new EmailAlreadyTakenException();
         }
@@ -36,7 +36,7 @@ class AuthService {
         return user;
     }
 
-    boolean isEmailTaken(String email) {
+    public boolean isEmailTaken(String email) {
         return userService.findByEmail(email) != null;
     }
 }

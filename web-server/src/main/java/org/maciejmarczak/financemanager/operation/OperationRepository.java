@@ -6,4 +6,5 @@ import java.util.List;
 
 interface OperationRepository extends JpaRepository<Operation, Integer> {
     List<Operation> getAllByIssuerId(Integer issuerId);
+    void deleteByIssuerIdAndId(Integer id, Integer issuerId);
 }

@@ -4,6 +4,7 @@ import org.maciejmarczak.financemanager.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -40,6 +41,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         final CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.applyPermitDefaultValues();
+        configuration.addAllowedMethod(HttpMethod.DELETE);
         configuration.setAllowedOrigins(Collections.singletonList(clientOrigin));
 
         source.registerCorsConfiguration("/**", configuration);

@@ -3,24 +3,30 @@ package org.maciejmarczak.financemanager.operation;
 import org.maciejmarczak.financemanager.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-class OperationService {
+@Transactional
+public class OperationService {
 
     private final OperationRepository operationRepository;
 
     @Autowired
-    OperationService(OperationRepository operationRepository) {
+    public OperationService(OperationRepository operationRepository) {
         this.operationRepository = operationRepository;
     }
 
-    Operation addOperation(Operation operation) {
+    public Operation addOperation(Operation operation) {
         return operationRepository.save(operation);
     }
 
-    List<Operation> getAllOperationsByIssuer(User issuer) {
+    public void deleteOperationById(User issuer, int id) {
+        operationRepository.deleteByIssuerIdAndId(issuer.getId(), id);
+    }
+
+    public List<Operation> getAllOperationsByIssuer(User issuer) {
         return operationRepository.getAllByIssuerId(issuer.getId());
     }
 }
